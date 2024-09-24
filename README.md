@@ -16,20 +16,22 @@
 
 ## Usage Example:
 
-`import { ChessGame, attackMapDebug } from 'chess'`
+```javascript
+import { ChessGame, attackMapDebug } from 'chess'
 
-`const game = ChessGame.NewGame()`
-`const board = game.getBoard()`
+const game = ChessGame.NewGame()
+const board = game.getBoard()
 
-`game.move('e4')`
-`game.move('e5')`
-`game.move('Nf3')`
-`game.move('Nf6')`
-`game.move('Bc4')`
-`game.move('Bc5')`
-`game.move('Nc3')`
-`game.move('Nc6')`
-`game.move('0-0')`
-`game.move('0-0')`
+game.move('e4')
+game.move('e5')
+game.move('Nf3')
+game.move('Nf6')
+game.move('Bc4')
+game.move('Bc5')
+game.move('Nc3')
+game.move('Nc6')
+game.move('0-0')
+game.move('0-0')
 
-`console.log(attackMapDebug(board))`
+console.log(attackMapDebug(board))
+```
