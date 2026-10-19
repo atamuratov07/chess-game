@@ -1,37 +1,30 @@
-# Chess Game Playing Logic
+# Chess Game Logic
 
-**Features:**
+A chess rules engine in TypeScript with no dependencies. It knows which moves are legal in any position, detects how a game ends, and reads and writes the standard chess notations.
 
--  Read And write FEN
--  Full support of Chess Rules:
-   -  Move making
-   -  Legal move and drop move generation
-   -  Game end and outcome
-   -  Insufficient material
-   -  Setup validation
--  Support Chess 960
--  Read and write SAN
--  Read and write PGN
--  Saving game history
+## Features
 
-## Usage Example:
+- Legal move generation, including castling, en passant and promotion
+- Moves given in SAN (`Nf3`) or UCI (`g1f3`), and undo
+- Game end detection: checkmate, stalemate, threefold repetition, the fifty-move rule and insufficient material
+- Resigning and agreed draws
+- Reading and writing FEN positions and PGN games, including PGN tags
+- Move history and printing the board as text
 
-```javascript
-import { ChessGame, attackMapDebug } from 'chess'
+## Usage
+
+```ts
+import { ChessGame } from './src'
 
 const game = ChessGame.NewGame()
-const board = game.getBoard()
 
-game.move('e4')
-game.move('e5')
-game.move('Nf3')
-game.move('Nf6')
-game.move('Bc4')
-game.move('Bc5')
-game.move('Nc3')
-game.move('Nc6')
-game.move('0-0')
-game.move('0-0')
+game.move('e4').move('e5').move('Nf3').move('Nc6').move('Bc4').move('Nf6')
+game.move('Ng5').move('d5').move('exd5').move('Nxd5')
 
-console.log(attackMapDebug(board))
+console.log(game.getStatus())          // { state: 'active', turn: 'white' }
+console.log(game.toString('fen'))      // r1bqkb1r/ppp2ppp/2n5/3np1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 0 6
+console.log(game.toString('ascii'))    // the board as text
+
+const fromPgn = ChessGame.NewFromPGN('1. e4 e5 2. Qh5 Nc6 3. Bc4 Nf6 4. Qxf7# 1-0')
+console.log(fromPgn.getStatus())       // { state: 'checkmate', turn: 'black', winner: 'white' }
 ```
